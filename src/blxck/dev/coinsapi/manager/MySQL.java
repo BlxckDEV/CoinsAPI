@@ -11,11 +11,11 @@ import org.bukkit.Bukkit;
 
 public class MySQL
 {
-    public static String host = "localhost";
+    public static String host = Main.getInstance().getConfig().getString("Host").replace("&", "§").toString();
     public static String port = "3306";
-    public static String database = "coinsapi";
-    public static String username = "root";
-    public static String password = "231004";
+    public static String database = Main.getInstance().getConfig().getString("Database").replace("&", "§").toString();
+    public static String username = Main.getInstance().getConfig().getString("User").replace("&", "§").toString();
+    public static String password = Main.getInstance().getConfig().getString("Passwort").replace("&", "§").toString();
     public static Connection con;
 
     public static boolean isConnected()
