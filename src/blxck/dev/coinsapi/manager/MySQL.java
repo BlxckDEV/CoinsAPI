@@ -11,33 +11,36 @@ import org.bukkit.Bukkit;
 
 public class MySQL
 {
-    public static String host = Main.getInstance().getConfig().getString("host").replace("&", "§").toString();
-    public static String port = "3306";
-    public static String database = Main.getInstance().getConfig().getString("Database").replace("&", "§").toString();
-    public static String username = Main.getInstance().getConfig().getString("user").replace("&", "§").toString();
-    public static String password = Main.getInstance().getConfig().getString("passwort").replace("&", "§").toString();
-
+    private final String HOST;
+    private final String DATABASE;
+    private final String USER;
+    private final String PASSWORD;
     public static Connection con;
+
+    public MySQL(String host, String database, String user, String password)
+    {
+        this.HOST = host;
+        this.DATABASE = database;
+        this.USER = user;
+        this.PASSWORD = password;
+
+        connect();
+    }
 
     public static boolean isConnected()
     {
         return con != null;
     }
 
-    public static void connect()
-    {
-        if (!isConnected()) {
-            try
-            {
-                con = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=true", username, password);
-                Bukkit.getConsoleSender().sendMessage(Main.pr + "§aEs konnte erfolgreich mit der Datenbank verbunden werden");
-            }
-            catch (SQLException e)
-            {
-                Bukkit.getConsoleSender().sendMessage(Main.pr + "§cEs konnte nicht mit der Datenbank verbunden werden");
-            }
-        }
-    }
+      public void connect() {
+            try {
+                  this.con = java.sql.DriverManager.getConnection("jdbc:mysql://" + this.HOST + ":3306/" + this.DATABASE + "?autoReconnect=true",
+                            this.USER, this.PASSWORD);
+                  System.out.println("Die Verbindung zur MySQL war erfolgreich");
+                 } catch (SQLException e) {
+                  System.out.println("Die Verbindung zur MySQL ist fehlgeschlagen! Fehler: " + e.getMessage());
+                }
+           }
 
     public static void disconnect()
     {

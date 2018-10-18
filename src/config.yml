@@ -11,6 +11,7 @@
 #
 
 #Stelle die MySQL-Verbindung her
+
 host: 'localhost'
 user: 'root'
 Database: 'coinsapi'

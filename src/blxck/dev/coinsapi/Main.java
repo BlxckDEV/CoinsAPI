@@ -8,12 +8,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Main extends JavaPlugin {
     public static Main instance;
     public static String pr = "§8[§aCoins§8] §r";
-
+    public MySQL mysql;
     public void onEnable() {
 
         loadConfig();
+        connectMySQL();
 
-        MySQL.connect();
         CoinsAPI.createTable();
         Bukkit.getPluginManager().registerEvents(new join_listener(), this);
     }
@@ -30,4 +30,11 @@ public class Main extends JavaPlugin {
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
     }
+
+    public void connectMySQL() {
+        this.mysql = new MySQL(this.getConfig().getString("host"), this.getConfig().getString("Database"), this.getConfig().getString("user"), this.getConfig().getString("passwort"));
+
+    }
+
+
 }
